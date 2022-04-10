@@ -1,11 +1,5 @@
 <script lang="ts">
-	import Button from '$lib/components/Button.svelte';
-	import Checkbox from '$lib/components/Checkbox.svelte';
-	import Dropdown from '$lib/components/Dropdown.svelte';
-	import DropdownItem from '$lib/components/DropdownItem.svelte';
-	import Icon from '$lib/components/Icon.svelte';
-	import Select from '$lib/components/Select.svelte';
-	import Switch from '$lib/components/Switch.svelte';
+	import { Button, Checkbox, Dropdown, DropdownItem, Icon, Select, Switch } from '$lib';
 	import type { SelectOption } from '$lib/types';
 
 	let options: SelectOption[] = [
