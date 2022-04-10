@@ -9,7 +9,7 @@
 
 	const dispatch = createEventDispatcher();
 
-	export let maxWidth: string = '600px';
+	export let maxWidth = '600px';
 	export let loading = false;
 	export let hideCloseIcon = false;
 	export let noDesign = false;
@@ -45,7 +45,7 @@
 	onDestroy(enableScroll);
 </script>
 
-<div class="modalContainer z-component" class:transparent on:click={closeModal} />
+<div class="z-component modalContainer" class:transparent on:click={closeModal} />
 <div class="zmodabs" on:click={closeModal}>
 	<div
 		class="modalContent"
@@ -55,7 +55,7 @@
 	>
 		{#if !hideCloseIcon && !notClosable}
 			<div class="iconclose noselect cursor-pointer" on:click={closeModal}>
-				<Icon icon="close" size="20px" bold />
+				<Icon name="close" size="20px" bold />
 			</div>
 		{/if}
 		<div class:contenedorBlanco={!noDesign} on:click={cancelclick}>

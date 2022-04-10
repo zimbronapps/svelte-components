@@ -31,9 +31,10 @@
 	export let boxShadow = '';
 	export let showDefaultIconInOptions = false;
 	export let disableAutoPosition = false;
-	export let width = '';
+	export let width = '250px';
 	export let error = '';
 	export let errorColor = colors.error;
+	export let defaultTextColor = colors.font;
 
 	export let hoverBackgroundColor = colors.primary50;
 	export let hoverTextColor = colors.primary;
@@ -152,7 +153,7 @@
 		initList();
 	});
 
-	const filterItems = (f?) => {
+	const filterItems = () => {
 		if (!filter) {
 			initList();
 			return;
@@ -163,7 +164,7 @@
 	};
 
 	$: {
-		filterItems(filter);
+		filterItems(), filter;
 	}
 
 	const onclickoutside = () => {
@@ -173,13 +174,14 @@
 </script>
 
 <div
-	class="zselectcontainer noselect z-component"
+	class="z-component zselectcontainer noselect"
 	style:width
 	style:max-width={width}
 	style:--hoverBackgroundColor={hoverBackgroundColor}
 	style:--hoverTextColor={hoverTextColor}
 	style:--color-error={errorColor}
 	use:clickOutside={onclickoutside}
+	style:color={defaultTextColor}
 >
 	{#if label}
 		<div class="zlabel">
@@ -196,7 +198,7 @@
 	>
 		<div class="labelcontainer">
 			{#if icon}
-				<Icon {icon} color={iconColor} />
+				<Icon name={icon} color={iconColor} />
 			{:else if image}
 				<img class="imgselect" src={image} alt={placeHolder} />
 			{/if}
@@ -210,7 +212,7 @@
 				{/if}
 			</span>
 		</div>
-		<Icon size="20px" icon="arrow_drop_down" />
+		<Icon size="20px" name="arrow_drop_down" />
 	</div>
 	{#if isOpen}
 		{#if allowSearch}
@@ -221,6 +223,8 @@
 					color={borderColor}
 					placeholder={buscarText}
 					{borderRadius}
+					noMargin
+					autofocus
 				/>
 			</div>
 		{/if}
@@ -265,7 +269,7 @@
 							<div class="iconDiv">
 								{#if item.icon || (showDefaultIconInOptions && icon)}
 									<Icon
-										icon={item.icon || (showDefaultIconInOptions ? icon : '')}
+										name={item.icon || (showDefaultIconInOptions ? icon : '')}
 										color={item.iconColor}
 									/>
 								{/if}

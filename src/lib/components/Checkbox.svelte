@@ -4,13 +4,13 @@
 	import '$lib/styles.css';
 	import { createEventDispatcher } from 'svelte';
 
-	export let checked: boolean = false;
+	export let checked = false;
 
 	export let color: string = colors.primary;
 	export let uncheckedColor: string = colors.primary100;
-	export let readOnly: boolean = false;
-	export let cursor: string = '';
-	export let id: string = '';
+	export let readOnly = false;
+	export let cursor = '';
+	export let id = '';
 
 	const dispatch = createEventDispatcher();
 	const change = () => {
@@ -20,10 +20,10 @@
 	};
 </script>
 
-<div data-id={id} on:click={change} style:cursor class="zcheckbox noselect z-component">
+<div data-id={id} on:click={change} style:cursor class="z-component zcheckbox noselect">
 	<Icon
 		color={checked ? color : uncheckedColor}
-		icon={checked ? 'check_box' : 'check_box_outline_blank'}
+		name={checked ? 'check_box' : 'check_box_outline_blank'}
 	/>
 	<div class="label">
 		<slot />

@@ -16,7 +16,6 @@
 
 	export let placeHolder = '';
 	export let label = '';
-	export let showHelpIcon = false;
 
 	export let allowSearch = false;
 
@@ -34,6 +33,7 @@
 
 	export let error = '';
 	export let errorColor = colors.error;
+	export let defaultTextColor = colors.font;
 
 	export let hoverBackgroundColor = colors.primary50;
 	export let hoverTextColor = colors.primary;
@@ -125,7 +125,7 @@
 		if (!maxHeight && startList.length > 20) {
 			maxHeight = '50vh';
 		}
-		startList = startList.map((item, i) => {
+		startList = startList.map((item) => {
 			if (!item.isLabel && !placeHolder && !value) {
 				setValue(item, false);
 			}
@@ -138,7 +138,7 @@
 		initList();
 	});
 
-	const filterItems = (f?) => {
+	const filterItems = () => {
 		if (!filter) {
 			initList();
 			return;
@@ -149,12 +149,8 @@
 	};
 
 	$: {
-		filterItems(filter);
+		filterItems(), filter;
 	}
-
-	const helpClick = () => {
-		dispatch('helpClick');
-	};
 
 	const onclickoutside = () => {
 		if (!isOpen) return;
@@ -163,24 +159,22 @@
 </script>
 
 <div
-	class="zselectcontainer noselect z-component"
+	class="z-component zselectcontainer noselect"
 	style:width
 	style:max-width={width}
 	style:--hoverBackgroundColor={hoverBackgroundColor}
 	style:--hoverTextColor={hoverTextColor}
 	style:--errorColor={errorColor}
+	style:color={defaultTextColor}
 	use:clickOutside={onclickoutside}
 >
-	{#if label || showHelpIcon}
-		<div class="zlabel">
+	{#if label}
+		<div class="label">
 			<span>{label}</span>
-			{#if showHelpIcon}
-				<Icon icon="help" cursor="pointer" color="var(--color-disabled)" on:click={helpClick} />
-			{/if}
 		</div>
 	{/if}
 	<div
-		class="select noselect"
+		class="select"
 		class:zselectError={error}
 		style:border-color={borderColor}
 		style:border-radius={borderRadius}
@@ -189,7 +183,7 @@
 	>
 		<div class="labelcontainer">
 			{#if selected.icon || icon}
-				<Icon icon={selected.icon || icon} color={selected.iconColor || iconColor} />
+				<Icon name={selected.icon || icon} color={selected.iconColor || iconColor} />
 			{:else if selected.image || image}
 				<img
 					class="imgselect"
@@ -205,7 +199,7 @@
 				{/if}
 			</span>
 		</div>
-		<Icon size="20px" icon="arrow_drop_down" />
+		<Icon size="20px" name="arrow_drop_down" />
 	</div>
 	{#if isOpen}
 		{#if allowSearch}
@@ -216,6 +210,8 @@
 					color={borderColor}
 					placeholder={buscarText}
 					{borderRadius}
+					noMargin
+					autofocus
 				/>
 			</div>
 		{/if}
@@ -245,7 +241,7 @@
 							<div class="iconDiv">
 								{#if item.icon || (showDefaultIconInOptions && icon)}
 									<Icon
-										icon={item.icon || (showDefaultIconInOptions ? icon : '')}
+										name={item.icon || (showDefaultIconInOptions ? icon : '')}
 										color={item.iconColor}
 									/>
 								{/if}
@@ -285,7 +281,7 @@
 		position: relative;
 	}
 
-	.zlabel {
+	.label {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;

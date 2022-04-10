@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Icon from '$lib/components/Icon.svelte';
 	import type { InputMode } from '$lib/types';
-	import { createEventDispatcher } from 'svelte';
+	import { createEventDispatcher, onMount } from 'svelte';
 
 	import '$lib/styles.css';
 	import { colors, cssConstants } from '$lib/constants';
@@ -59,6 +59,9 @@
 	export let labelBold = false;
 	export let labelColor = '';
 
+	export let noMargin = false;
+	export let autofocus = false;
+
 	export let trim = false;
 
 	const keypressDispatch = (e) => dispatch('keypress', e);
@@ -102,7 +105,7 @@
 		}
 	}
 
-	const focusInput = (e) => {
+	const focusInput = () => {
 		ref.focus();
 	};
 
@@ -128,13 +131,19 @@
 		changed = true;
 		dispatch('change', value);
 	};
+
+	onMount(() => {
+		if (autofocus) {
+			focusInput();
+		}
+	});
 </script>
 
 <div
-	class="zinputcontainer noselect z-component"
+	class="z-component zinputcontainer noselect"
 	class:inlineflex={inline}
 	{style}
-	style:margin={`${labelPosition === 'border' ? 15 : 5}px 0 5px 0`}
+	style:margin={noMargin ? 0 : `${labelPosition === 'border' ? 15 : 5}px 0 5px 0`}
 	style:max-width={maxWidth}
 	style:width
 	style:--input-ccolor={color}
@@ -161,7 +170,7 @@
 				on:click={leftIconClick}
 			>
 				{#if leftIcon}
-					<Icon icon={leftIcon} size={leftIconSize} />
+					<Icon name={leftIcon} size={leftIconSize} />
 				{:else if leftText}
 					{leftText}
 				{/if}
@@ -198,7 +207,7 @@
 				on:click={rightIconClick}
 			>
 				{#if rightIcon}
-					<Icon icon={rightIcon} size={rightIconSize} />
+					<Icon name={rightIcon} size={rightIconSize} />
 				{:else if rightText}
 					{rightText}
 				{/if}

@@ -8,7 +8,7 @@
 	export let icon = 'expand_more';
 
 	export let isOpen = false;
-	export let notClosableOnItemClick: boolean = false;
+	export let notClosableOnItemClick = false;
 	export let shadowColor = 'rgba(0, 0, 0, 0.1)';
 
 	export let defaultIconSize = '25px';
@@ -16,18 +16,8 @@
 	export let defaultIconColor = colors.primary;
 	export let defaultIconTextColor = colors.primary50;
 
-	/**
-	 * Altura máxima del contenedor de elementos, si no agregas no habrá un alto máximo.
-	 * @example
-	 * "100px", "5rem", "40vh"
-	 */
 	export let maxHeight = '';
 
-	/**
-	 * Separación de los elementos del menú del botón
-	 * @example
-	 * "10px", "1rem", "1vw"
-	 */
 	export let offset = '5px';
 
 	export let position:
@@ -82,18 +72,20 @@
 	};
 </script>
 
-<div class="menucontainer noselect z-component" use:clickOutside={clickOutsideHandle}>
-	<slot name="button">
-		<div
-			class="icondiv"
-			style:width={defaultIconSize}
-			style:--defaultIconColor={defaultIconColor}
-			style:--defaultIconTextColor={defaultIconTextColor}
-			on:click={toggle}
-		>
-			<Icon {icon} size={defaultIconTextSize} color={defaultIconTextColor} />
-		</div>
-	</slot>
+<div class="z-component menucontainer noselect" use:clickOutside={clickOutsideHandle}>
+	<div class="btn" on:click={toggle}>
+		<slot name="button">
+			<div
+				class="icondiv"
+				class:opened={isOpen}
+				style:width={defaultIconSize}
+				style:--defaultIconColor={isOpen ? defaultIconTextColor : defaultIconColor}
+				style:--defaultIconTextColor={isOpen ? defaultIconColor : defaultIconTextColor}
+			>
+				<Icon name={icon} size={defaultIconTextSize} />
+			</div>
+		</slot>
+	</div>
 
 	{#if isOpen}
 		<div
@@ -113,14 +105,13 @@
 
 <style>
 	.menucontainer {
-		cursor: pointer;
 		position: relative;
 		display: flex;
 		width: fit-content;
 		height: fit-content;
 	}
 
-	.icondiv {
+	.btn .icondiv {
 		aspect-ratio: 1;
 		display: flex;
 		align-items: center;
@@ -128,6 +119,12 @@
 		border-radius: 50%;
 		background-color: var(--defaultIconColor);
 		color: var(--defaultIconTextColor);
+		cursor: pointer;
+		transition: all 0.25s ease-in-out;
+	}
+
+	.icondiv.opened {
+		transform: rotate(180deg);
 	}
 
 	.menu-items {

@@ -9,7 +9,7 @@
 </script>
 
 <div
-	class="loader z-component"
+	class="z-component loader"
 	style:--dotsPerLine={dotsPerLine}
 	style:width={size}
 	style:--color={color}

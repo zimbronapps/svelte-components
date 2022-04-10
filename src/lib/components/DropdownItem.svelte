@@ -4,39 +4,43 @@
 	import '$lib/styles.css';
 	import { colors } from '$lib/constants';
 
-	export let icon: string = '';
-	export let image: string = '';
-	export let iconColor: string = '';
-	export let cursor: string = '';
+	export let icon = '';
+	export let image = '';
+	export let iconColor = '';
+	export let cursor = 'pointer';
 	export let gap = '10px';
-	export let selected: boolean = false;
-	export let colorText: string = '';
+	export let selected = false;
+	export let colorText: string = colors.font;
 	export let colorTextHover: string = colors.primary;
-	export let colorBackground: string = '#ffffff';
+	export let colorBackground = '#ffffff';
 	export let colorBackgroundHover: string = colors.primary50;
-	export let style: string = '';
+	export let style = '';
+
+	export let disabled = false;
 
 	const dispatch = createEventDispatcher();
 
 	const click = () => {
+		if (disabled) return;
 		dispatch('click');
 	};
 </script>
 
 <div
-	class="btnsubmenu z-component"
+	class="z-component btnsubmenu"
+	{style}
 	style:gap
-	style:cursor
-	class:selected
+	style:cursor={disabled ? 'not-allowed' : cursor}
 	style:--colorText={colorText}
 	style:--colorTextHover={colorTextHover}
 	style:--colorBackground={colorBackground}
 	style:--colorBackgroundHover={colorBackgroundHover}
-	{style}
+	class:selected
+	class:disabled
 	on:click={click}
 >
 	{#if icon}
-		<Icon {icon} color={iconColor} />
+		<Icon name={icon} color={iconColor} />
 	{:else if image}
 		<img src={image} alt="icon" />
 	{/if}
@@ -65,5 +69,9 @@
 	}
 	.selected {
 		font-weight: bold;
+	}
+	.disabled {
+		pointer-events: none;
+		opacity: 0.5;
 	}
 </style>

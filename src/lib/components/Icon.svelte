@@ -3,12 +3,12 @@
 	import type { IconType } from '$lib/types';
 	import { createEventDispatcher } from 'svelte';
 
-	export let icon: string;
+	export let name: string;
 	export let type: IconType = 'normal';
-	export let size: string = '';
-	export let color: string = '';
-	export let cursor: string = '';
-	export let bold: boolean = false;
+	export let size = '';
+	export let color = '';
+	export let cursor = '';
+	export let bold = false;
 
 	const dispatch = createEventDispatcher();
 
@@ -25,7 +25,7 @@
 	style:--icon-size={size}
 	on:click={click}
 >
-	{icon}
+	{name}
 </span>
 
 <style>

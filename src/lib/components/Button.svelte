@@ -38,7 +38,7 @@
 <button
 	{type}
 	on:click={click}
-	class="noselect boton zafiro-component"
+	class="z-component noselect boton"
 	style:--btn-color-custom={color}
 	style:--btn-textColor-custom={textColor}
 	style:border-radius={borderRadius}
@@ -48,11 +48,11 @@
 >
 	<div class="btnContent">
 		{#if leftIcon}
-			<Icon bold={leftIconBold} icon={leftIcon} size={leftIconSize} type={leftIconType} />
+			<Icon bold={leftIconBold} name={leftIcon} size={leftIconSize} type={leftIconType} />
 		{/if}
 		<slot />
 		{#if rightIcon}
-			<Icon bold={rightIconBold} icon={rightIcon} size={rightIconSize} type={rightIconType} />
+			<Icon bold={rightIconBold} name={rightIcon} size={rightIconSize} type={rightIconType} />
 		{/if}
 	</div>
 </button>
