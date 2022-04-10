@@ -1,4 +1,6 @@
 module.exports = {
+	// extend plugin:storybook/<configuration>, such as:
+	extends: ['plugin:storybook/recommended'],
 	root: true,
 	parser: '@typescript-eslint/parser',
 	extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended', 'prettier'],
