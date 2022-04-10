@@ -134,6 +134,7 @@
 	class="zinputcontainer noselect z-component"
 	class:inlineflex={inline}
 	{style}
+	style:margin={`${labelPosition === 'border' ? 15 : 5}px 0 5px 0`}
 	style:max-width={maxWidth}
 	style:width
 	style:--input-ccolor={color}
@@ -240,7 +241,7 @@
 		content: '';
 		position: absolute;
 		left: -1px;
-		top: 50%;
+		top: 53%;
 		width: 1px;
 		height: 50%;
 		background-color: white;
@@ -249,7 +250,7 @@
 		content: '';
 		position: absolute;
 		right: -1px;
-		top: 50%;
+		top: 53%;
 		width: 1px;
 		height: 50%;
 		background-color: white;
